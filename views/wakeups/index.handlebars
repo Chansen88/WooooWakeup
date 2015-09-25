@@ -9,8 +9,8 @@
       <div class="panel-body">
         <b>{{this.date}}</b></br>
         Alarm: {{this.time}}</br>
-        Adjusted Alarm: {{this.timeCall}}
-
+        Adjusted Alarm: {{this.timeCall}}</br>
+        Chance of Rain:  {{this.rainPercent}}
         <div class="switch">
           {{#if this.onOff}}
             on/off: <input class="on-off" data-wakeupid="{{this._id}}" type="checkbox" checked>
@@ -22,8 +22,8 @@
     </div>
   </div>
 {{/each}}
-<div class="col-md-4">
-  <div class="panel panel-default" id="newpanel">
+<div class="col-md-4" id="newpanel">
+  <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">NEW! Alarm</h3><button id="new" class="round tall" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
     </div>

@@ -39,21 +39,21 @@ app.post('/users/:id/wakeups', function(req, res) {
   db.User.findById(req.params.id).populate('weather').exec(function(err, user) {
     db.Wakeup.create(req.body, function(err, wakeup) {
       if (wakeup) {
-        var currentUnix = moment(wakeup.date + ' ' + wakeup.time).unix();
-        var timetill = moment().unix() - currentUnix;
-        console.log(user.weather.weatherData);
-        // console.log(user.weather);
-        console.log(timetill);
+        var timeUnix = moment(wakeup.date + ' ' + wakeup.time).unix();
+        var timetill = moment().unix() - timeUnix;
+        var weatherParse = JSON.parse(user.weather.weatherData);
         if ((timetill * -1) < 86400) {
-          console.log(-1 * timetill / 3600);
-          console.log(user.weather.weatherData);
-          console.log(user.weather.weatherData.hourly);
-          console.log(user.weather.weatherData.hourly.data);
-          console.log(user.weather.weatherData.hourly.data[Math.ceil(-1 * timetill / 3600)]);
-          console.log(user.weather.weatherData.hourly.data[Math.ceil(-1 * timetill / 3600)].precipProbability);
+          console.log(timeUnix);
+          var percent = weatherParse.hourly.data[Math.ceil(-1 * timetill / 3600)].precipProbability;
+          wakeup.rainPercent = (percent * 100) + '%';
+          wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
         } else if ((timetill * -1) < 691200) {
           console.log(-1 * timetill / 86400);
-          console.log(user.weather.weatherData.daily);
+          var percent = weatherParse.daily.data[Math.ceil(-1 * timetill / 86400)].precipProbability;
+          wakeup.rainPercent = (percent * 100) + '%';
+          wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
+        } else {
+          wakeup.timeCall = "-:--";
         }
         wakeup.onOff = true;
         wakeup.save();

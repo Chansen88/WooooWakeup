@@ -7,7 +7,6 @@ $(function() {
   var $newpanel = $('#newpanel');
   $newwakeup.hide();
   var el = $(this);
-  console.log(moment(el.attr("datetime")));
 
   $.ajax({
     type: 'get',
@@ -65,7 +64,8 @@ $(function() {
     });
   });
 
-  $('#new').on('click', function(e) {
+  $('.main-container').on('click', '#new', function(e) {
+    $('#wakeuptime').timepicker({ 'scrollDefault': 'now', 'timeFormat': 'H:i', 'step': 15 });
     $newwakeup.toggle();
   });
 
@@ -74,16 +74,19 @@ $(function() {
     wakeup.title = $('#wakeuptitle').val();
     wakeup.date = $('#wakeupdate').val();
     wakeup.time = $('#wakeuptime').val();
-    $.ajax({
-      type: 'POST',
-      url: path + '/wakeups',
-      data: wakeup
-    }).done(function(data) {
-      console.log('work');
-      $newpanel.remove();
-      $mainContainer.append(data);
-      $newwakeup = $('.newwakeup');
-      $newwakeup.hide();
-    });
+    if ((moment(moment(wakeup.date + ' ' + wakeup.time)._d).unix() - moment(moment(el.attr("datetime"))._d).unix()) > 600) {
+      $.ajax({
+        type: 'POST',
+        url: path + '/wakeups',
+        data: wakeup
+      }).done(function(data) {
+        $newpanel.remove();
+        $mainContainer.append(data);
+        $newwakeup = $('.newwakeup');
+        $newwakeup.hide();
+      });
+    } else {
+      alert('Alarms need to be in the future');
+    }
   });
 });

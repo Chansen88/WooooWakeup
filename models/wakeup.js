@@ -7,6 +7,7 @@ var wakeupSchema = new mongoose.Schema({
   time: String,
   timeCall: String,
   onOff: Boolean,
+  rainPercent: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
