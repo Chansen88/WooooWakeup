@@ -1,0 +1,24 @@
+<div class="col-md-12">
+  <div class="panel panel-default" id="newpanel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Weather</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-4 weather">
+        <h3>Currently</h3>
+        <h1>{{weather.currently.temperature}}°</h1> </br>
+        {{weather.currently.summary}} - feels like {{weather.currently.apparentTemperature}}
+      </div>
+      <div class="col-md-4 weather">
+        <h3>Next Hour</h3>
+        <h1>{{hour}}</h1> precipitation </br>
+        {{weather.minutely.summary}}
+      </div>
+      <div class="col-md-4 weather">
+        <h3>Next 24 Hours</h3>
+        <h1>{{day}}</h1> precipitation </br>
+        {{weather.hourly.summary}}s
+      </div>
+    </div>
+  </div>
+</div>

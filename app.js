@@ -3,14 +3,16 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var exphbs = require('express-handlebars');
 var session = require('cookie-session');
-
+var moment = require('moment');
 
 var db = require('./models');
 loginMiddleware = require('./middleware/loginhelper');
 routeMiddleware = require('./middleware/routehelper');
 
+moment().format();
 app = express();
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+// app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));

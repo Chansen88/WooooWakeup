@@ -1,7 +1,20 @@
-<h3>{{user.username}}</h3>
-<form action="/users/edit" method="get">
-    <button id="submit">Edit</button>
-</form>
-<form action="/users/logout" method="get">
-    <button id="submit">Logout</button>
-</form>
+<div class="container-user">
+  <div class="well well-lg avatar">
+    <img src="{{user.avatar}}" alt="avatar" />
+    <h3>{{user.username}}</h3>
+  </div>
+  <div class="user-buttons">
+    <form action="/users/edit" method="get">
+        <button id="submit" class="btn btn-default">Edit</button>
+    </form>
+    <form action="/users/logout" method="get">
+        <button id="submit" class="btn btn-default">Logout</button>
+    </form>
+    <form action="/users/{{user._id}}/weathers" method="get">
+        <button id="submit" class="btn btn-default">Weather</button>
+    </form>
+    <form action="/users/{{user._id}}/wakeups" method="get">
+        <button id="submit" class="btn btn-default">wakeups</button>
+    </form>
+</div>
+</div>

@@ -1,15 +1,13 @@
-<div class="container">
-  <form class="signup" action="/users/signup" method="post">
-    <ul>
-      <li>Avatar: <input type="text" name="user[avatar]"></li>
-      <li>Username: <input type="text" name="user[username]"></li>
-      <li>Password: <input type="password" name="user[password]"></li>
-      <li>Phone Number: <input type="text" name="user[phoneNumber]"></li>
-      <li>Location Latitude: <input class="locationLat" type="text" name="user[locationLat]"></li>
-      <li>Location Longitude: <input class="locationLong" type="text" name="user[locationLong]"></li>
-      <li><button id="location">Get Location</button></li>
-    </ul>
-    <button id="submit">Sign up</button>
-  </form>
-  <a href='/users/login'>Already have an account? Login here</a>
-</div>
+<form class="signup" action="/users/signup" method="post">
+  <ul>
+    <li>Avatar: <input type="text" name="user[avatar]"></li>
+    <li>Username: <input type="text" name="user[username]"></li>
+    <li>Password: <input type="password" name="user[password]"></li>
+    <li>Phone Number: <input type="text" name="user[phoneNumber]"></li>
+    <li>Location Latitude: <input class="locationLat" type="text" name="user[locationLat]"></li>
+    <li>Location Longitude: <input class="locationLong" type="text" name="user[locationLong]"></li>
+    <li><button id="location">Get Location</button></li>
+  </ul>
+  <button id="submit">Sign up</button>
+</form>
+<a href='/users/login'>Already have an account? Login here</a>

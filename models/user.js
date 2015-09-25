@@ -5,45 +5,41 @@ var SALT = 10;
 var userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: true
   },
   locationLong: {
-    type: String,
-    required: true,
+    type: Number,
+    required: true
   },
   locationLat: {
-    type: String,
-    required: true,
+    type: Number,
+    required: true
   },
   avatar: String,
+  weather: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Weather',
+  },
   wakeups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Wakeup',
-  },],
+  }]
 });
 
 userSchema.pre('save', function(next) {
   var user = this;
-
-  console.log('schema');
-
   if (!user.isModified('password')) {
-    console.log('not modified');
     return next();
   }
-
-  console.log('modified');
-  console.log(SALT);
   bcrypt.genSalt(SALT, function(err, salt) {
-    console.log('salted');
     if (err) {
       return next(err);
     }
@@ -58,16 +54,15 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.statics.authenticate = function (formData, callback) {
+userSchema.statics.authenticate = function(formData, callback) {
   this.findOne({
-    email: formData.email
+    username: formData.username
   },
-  function (err, user) {
-    console.log(user + '  <-----user');
+  function(err, user) {
     if (user === null) {
-      callback("invaild username or password", null);
+      callback('invaild username or password', null);
     } else {
-      user.checkPassword(formData.passworrd, callback);
+      user.checkPassword(formData.password, callback);
     }
   });
 };
@@ -83,5 +78,5 @@ userSchema.methods.checkPassword = function(password, callback) {
   });
 };
 
-var User = mongoose.model("User", userSchema);
+var User = mongoose.model('User', userSchema);
 module.exports = User;

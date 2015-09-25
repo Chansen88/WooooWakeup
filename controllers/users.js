@@ -3,7 +3,7 @@ var loginMiddleware = require('../middleware/loginhelper');
 var routeMiddleware = require('../middleware/routehelper');
 
 app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.User.findById(req.session.id, function(err,user) {
+  db.User.findById(req.session.id, function(err, user) {
     res.render('users/index', {user: user});
   });
 });
@@ -33,12 +33,10 @@ app.get('/users/login', routeMiddleware.preventLoginSignup, function(req, res) {
 });
 
 app.post('/users/login', routeMiddleware.preventLoginSignup, function(req, res) {
-  console.log(req.body.user);
   db.User.authenticate(req.body.user, function(err, user) {
-      console.log(user + "why?????");
       if (!err && user !== null) {
         req.login(user);
-        res.redirect('/posts');
+        res.redirect('/users');
       } else {
         res.redirect('/users/login');
       }
@@ -48,6 +46,16 @@ app.post('/users/login', routeMiddleware.preventLoginSignup, function(req, res) 
 app.get('/users/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.session.id, function(err,user) {
     res.render('users/edit', {user: user});
+  });
+});
+
+app.put('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.User.findByIdAndUpdate(req.session.id, req.body.user, function(err, user) {
+    if (err) {
+      res.redirect('/users/edit');
+    } else {
+      res.redirect('/users');
+    }
   });
 });
 

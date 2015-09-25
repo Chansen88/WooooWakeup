@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-
+var findOrCreate = require('mongoose-findorcreate');
 var weatherSchema = new mongoose.Schema({
-  locationLat: String,
-  locationLong: String,
+  locationLat: Number,
+  locationLong: Number,
   time: String,
   weatherData: String,
 });
-
-var Weather = mongoose.model("Weather", wakeupSchema);
-module.exports = Weather; 
+weatherSchema.plugin(findOrCreate);
+var Weather = mongoose.model('Weather', weatherSchema);
+module.exports = Weather;

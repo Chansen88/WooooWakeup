@@ -1,0 +1,40 @@
+<div class="weather-div"></div>
+{{#each wakeups}}
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{this.title}}</h3>
+        <button class="delete round" data-wakeupid="{{this._id}}">X</button>
+      </div>
+      <div class="panel-body">
+        <b>{{this.date}}</b></br>
+        Alarm: {{this.time}}</br>
+        Adjusted Alarm: {{this.timeCall}}
+
+        <div class="switch">
+          {{#if this.onOff}}
+            on/off: <input class="on-off" data-wakeupid="{{this._id}}" type="checkbox" checked>
+          {{else }}
+            on/off: <input class="on-off" data-wakeupid="{{this._id}}" type="checkbox">
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}
+<div class="col-md-4">
+  <div class="panel panel-default" id="newpanel">
+    <div class="panel-heading">
+        <h3 class="panel-title">NEW! Alarm</h3><button id="new" class="round tall" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    </div>
+    <div class="panel-body newwakeup">
+        <ul>
+          <li>Title: <input id="wakeuptitle" type="text" name="wakeup[title]" value=""></li>
+          <li>Date: <input id="wakeupdate" type="date" name="wakeup[date]" value=""></li>
+          <li>Time: <input id="wakeuptime" type="time" name="wakeup[time]" value=""></li>
+          <button id="postnew">Submit</button>
+        </ul>
+    </div>
+  </div>
+</div>
+<input class="userid" type="hidden" name="userIDholder" value="/users/{{userid}}">
