@@ -17,7 +17,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.10.6",
     "mongoose": "^4.1.8",
-    "mongoose-find-one-or-create": "^0.2.0",
+    "mongoose-findorcreate": "^0.1.2",
     "request": "^2.63.0",
     "twilio": "^2.4.0"
   }
