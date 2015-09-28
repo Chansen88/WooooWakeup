@@ -4,7 +4,6 @@ $(function() {
   var $newwakeup = $('.newwakeup');
   var $mainContainer = $('.main-container');
   var path = $('.userid').val();
-  var $newpanel = $('#newpanel');
   $newwakeup.hide();
   var el = $(this);
 
@@ -49,7 +48,7 @@ $(function() {
 
   //I don't remove the UI portions with a done, because then the performances is terrible
 
-  $('.delete').on('click', function(e) {
+  $('.main-container').on('click', '.delete', function(e) {
     $.ajax({
       type: 'POST',
       url: path + '/wakeups/' + $(this).attr('data-wakeupid') + '?_method=delete',
@@ -57,7 +56,7 @@ $(function() {
     $(this).parent().parent().parent().remove();
   });
 
-  $('.on-off').on('click', function(e) {
+  $('.main-container').on('click', '.on-off', function(e) {
     $.ajax({
       type: 'POST',
       url: path + '/wakeups/' + $(this).attr('data-wakeupid') + '?_method=put',
@@ -69,7 +68,7 @@ $(function() {
     $newwakeup.toggle();
   });
 
-  $('#postnew').on('click', function(e) {
+  $('.main-container').on('click', '#postnew',function(e) {
     var wakeup = {};
     wakeup.title = $('#wakeuptitle').val();
     wakeup.date = $('#wakeupdate').val();
@@ -80,7 +79,7 @@ $(function() {
         url: path + '/wakeups',
         data: wakeup
       }).done(function(data) {
-        $newpanel.remove();
+        $('#newpanel').remove();
         $mainContainer.append(data);
         $newwakeup = $('.newwakeup');
         $newwakeup.hide();

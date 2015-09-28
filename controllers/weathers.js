@@ -8,7 +8,7 @@ var request = require('request');
 function rainPercentage(weather) {
   var results = [];
   var sum = 0;
-  console.log(weather);
+  // console.log(weather);
   if (weather.minutely) {
     for (var i = 0; i < weather.minutely.data.length; i++) {
       sum += weather.minutely.data[i].precipProbability;
@@ -42,11 +42,14 @@ app.get('/users/:id/weathers', routeMiddleware.ensureLoggedIn,
               weather.save();
               user.weather = weather;
               user.save();
+              console.log(user.weather);
               var weatherparse = JSON.parse(weather.weatherData);
               var rainPercentageData = rainPercentage(weatherparse);
               res.render('weathers/index', {layout: false, weather: weatherparse, hour: rainPercentageData[0], day: rainPercentageData[1]});
             });
         } else {
+          user.weather = weather;
+          user.save();
           console.log('uptoDate');
           var weatherparse = JSON.parse(weather.weatherData);
           var rainPercentageData = rainPercentage(weatherparse);

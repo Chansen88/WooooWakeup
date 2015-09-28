@@ -1,7 +1,7 @@
 <div class="weather-div"></div>
 {{#each wakeups}}
   <div class="col-md-4">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">{{this.title}}</h3>
         <button class="delete round" data-wakeupid="{{this._id}}">X</button>
@@ -23,7 +23,7 @@
   </div>
 {{/each}}
 <div class="col-md-4" id="newpanel">
-  <div class="panel panel-default">
+  <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">NEW! Alarm</h3><button id="new" class="round tall" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
     </div>

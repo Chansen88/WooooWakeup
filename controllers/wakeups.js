@@ -2,24 +2,17 @@ var db = require('../models/index');
 var routeMiddleware = require('../middleware/routehelper');
 var moment = require('moment');
 
-/*
-BuiLD
-WEATHER
-HELPPER
-That pulls weather and find projected rain.
-
-*/
 app.get('/wakeups/', routeMiddleware.ensureLoggedIn, function(req, res) {
   res.redirect('/users/' + req.session.id + '/wakeups');
 });
 
-app.get('/users/:id/wakeups', function(req, res) {
+app.get('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.params.id).populate('wakeups').exec(function(err, user) {
+    console.log(user);
     for (var i = 0; i < user.wakeups.length; i++) {
       user.wakeups[i].date = moment(user.wakeups[i].date).format('LL');
-      //GMT TIME FOR alarm Below
-      moment(user.wakeups[i].date + ' ' + user.wakeups[i].time).unix();
     }
+    console.log(user);
     // console.log(moment(user.wakeups[1].date + ' ' + user.wakeups[1].time).unix() - moment(user.wakeups[2].date + ' ' + user.wakeups[2].time).unix());
     res.render('wakeups/index', {
       userid: user._id,
@@ -28,15 +21,9 @@ app.get('/users/:id/wakeups', function(req, res) {
   });
 });
 
-// app.get('/users/:id/wakeups/new', function(req, res) {
-//   db.User.findById(req.params.id, function(err, user) {
-//     console.log(user);
-//     res.send({userid: user._id});
-//   });
-// });
-
-app.post('/users/:id/wakeups', function(req, res) {
+app.post('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.params.id).populate('weather').exec(function(err, user) {
+    console.log(user);
     db.Wakeup.create(req.body, function(err, wakeup) {
       if (wakeup) {
         var timeUnix = moment(wakeup.date + ' ' + wakeup.time).unix();
@@ -55,6 +42,8 @@ app.post('/users/:id/wakeups', function(req, res) {
         } else {
           wakeup.timeCall = "-:--";
         }
+        wakeup.weather = user.weather;
+        console.log(wakeup.weather);
         wakeup.onOff = true;
         wakeup.save();
         user.wakeups.push(wakeup);
@@ -72,7 +61,7 @@ app.post('/users/:id/wakeups', function(req, res) {
   });
 });
 
-app.put('/users/:user_id/wakeups/:id', function(req, res) {
+app.put('/users/:user_id/wakeups/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Wakeup.findById(req.params.id, function(err, wakeup) {
     if (wakeup.onOff === false) {
       wakeup.onOff = true;
@@ -84,7 +73,7 @@ app.put('/users/:user_id/wakeups/:id', function(req, res) {
   });
 });
 
-app.delete('/users/:user_id/wakeups/:id', function(req, res) {
+app.delete('/users/:user_id/wakeups/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Wakeup.findByIdAndRemove(req.params.id).exec(
     function(err, post) {
       if (err) {

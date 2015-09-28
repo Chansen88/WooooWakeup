@@ -15,7 +15,6 @@ app.get('/users/signup', routeMiddleware.preventLoginSignup, function(req, res) 
 app.post('/users/signup', routeMiddleware.preventLoginSignup, function(req, res) {
   var newUser = req.body.user;
   db.User.create(newUser, function(err, user) {
-    console.log(req.body.user.locationLat);
     console.log('user:  ' + user);
     if (user) {
       console.log(user);

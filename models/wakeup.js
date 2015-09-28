@@ -12,11 +12,10 @@ var wakeupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-});
-
-wakeupSchema.pre('remove', function(callback) {
-  User.remove({wakeups: this._id}).exec();
-  callback();
+  weather: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Weather',
+  },
 });
 
 var Wakeup = mongoose.model('Wakeup', wakeupSchema);
