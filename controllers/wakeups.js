@@ -22,6 +22,7 @@ app.get('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res)
 });
 
 app.post('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res) {
+  console.log('******************Received Post: now needing to build******************');
   db.User.findById(req.params.id).populate('weather').exec(function(err, user) {
     console.log(user);
     db.Wakeup.create(req.body, function(err, wakeup) {
