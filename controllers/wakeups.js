@@ -24,41 +24,45 @@ app.get('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res)
 app.post('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res) {
   console.log('******************Received Post: now needing to build******************');
   db.User.findById(req.params.id).populate('weather').exec(function(err, user) {
-    console.log(user);
     db.Wakeup.create(req.body, function(err, wakeup) {
-      if (wakeup) {
-        var timeUnix = moment(wakeup.date + ' ' + wakeup.time).unix();
-        var timetill = moment().unix() - timeUnix;
-        var weatherParse = JSON.parse(user.weather.weatherData);
-        if ((timetill * -1) < 86400) {
-          console.log(timeUnix);
-          var percent = weatherParse.hourly.data[Math.ceil(-1 * timetill / 3600)].precipProbability;
-          wakeup.rainPercent = (percent * 100) + '%';
-          wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
-        } else if ((timetill * -1) < 691200) {
-          console.log(-1 * timetill / 86400);
-          var percent = weatherParse.daily.data[Math.ceil(-1 * timetill / 86400)].precipProbability;
-          wakeup.rainPercent = (percent * 100) + '%';
-          wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
-        } else {
-          wakeup.timeCall = "-:--";
-        }
-        wakeup.weather = user.weather;
-        console.log(wakeup.weather);
-        wakeup.onOff = true;
-        wakeup.user = user;
-        wakeup.save();
-        user.wakeups.push(wakeup);
-        user.save();
-        res.render('wakeups/index', {
-          layout: false,
-          wakeups: [wakeup]
-        });
-        // res.redirect('/users/' + req.params.id + '/wakeups');
-      } else {
+      if (err) {
         console.log('error creating wakeup');
-        res.redirect('/users/' + req.params.id + '/wakeups/new');
+        res.redirect('/users/' + req.params.id);
       }
+      var timeUnix = moment(wakeup.date + ' ' + wakeup.time).unix();
+      var timetill = Math.abs(moment().unix() - timeUnix);
+      console.log('*****************:   ' +timetill);
+      var weatherParse = JSON.parse(user.weather.weatherData);
+      if ((timetill) < 86400) {
+        console.log('********************A********************');
+        console.log(weatherParse.hourly.data);
+        console.log('LOACTION: ' + Math.ceil(-1 * timetill / 3600));
+        console.log('LOACTION: ' + Math.ceil(timetill / 3600));
+        var percent = weatherParse.hourly.data[Math.ceil(timetill / 3600)].precipProbability;
+        console.log('********************B********************');
+        wakeup.rainPercent = (percent * 100) + '%';
+        console.log('********************C********************');
+        wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
+      } else if ((timetill) < 691200) {
+        console.log(timetill / 86400);
+        var percent = weatherParse.daily.data[Math.ceil(timetill / 86400)].precipProbability;
+        wakeup.rainPercent = (percent * 100) + '%';
+        wakeup.timeCall = moment(wakeup.date + ' ' + wakeup.time).subtract(60*percent, 'minutes').format('HH:mm');
+      } else {
+        wakeup.timeCall = "-:--";
+      }
+      console.log('****WEATHER****** ' + user.weather);
+      wakeup.weather = user.weather;
+      console.log(wakeup.weather);
+      wakeup.onOff = true;
+      wakeup.user = user;
+      wakeup.save();
+      user.wakeups.push(wakeup);
+      user.save();
+      res.render('wakeups/index', {
+        layout: false,
+        wakeups: [wakeup]
+      });
     });
   });
 });
