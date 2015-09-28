@@ -29,6 +29,6 @@ require('./controllers/index');
 
 // app.listen(process.env.PORT || 3000, function(){
 
-app.listen(3000, function() {
-  console.log("Wake UPPPPPPPP @ " +  3000);
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Wake UPPPPPPPP @ " +  process.env.PORT || 3000);
 });

@@ -45,6 +45,7 @@ app.post('/users/:id/wakeups', routeMiddleware.ensureLoggedIn, function(req, res
         wakeup.weather = user.weather;
         console.log(wakeup.weather);
         wakeup.onOff = true;
+        wakeup.user = user;
         wakeup.save();
         user.wakeups.push(wakeup);
         user.save();
