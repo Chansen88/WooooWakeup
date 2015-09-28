@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var findOrCreate = require('mongoose-findorcreate');
+var findOrCreate = require('mongoose-find-one-or-create');
 var Wakeup = require('./wakeup');
 
 var weatherSchema = new mongoose.Schema({
