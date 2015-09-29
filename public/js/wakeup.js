@@ -73,7 +73,6 @@ $(function() {
     wakeup.title = $('#wakeuptitle').val();
     wakeup.date = $('#wakeupdate').val();
     wakeup.time = $('#wakeuptime').val();
-    console.log(wakeup);
     if ((moment(moment(wakeup.date + ' ' + wakeup.time)._d).unix() - moment(moment(el.attr("datetime"))._d).unix()) > 300) {
       $.ajax({
         type: 'POST',
