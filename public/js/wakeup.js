@@ -46,8 +46,6 @@ $(function() {
     }
   });
 
-  //I don't remove the UI portions with a done, because then the performances is terrible
-
   $('.main-container').on('click', '.delete', function(e) {
     $.ajax({
       type: 'POST',
