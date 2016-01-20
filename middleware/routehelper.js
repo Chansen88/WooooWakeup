@@ -12,7 +12,7 @@ var routeHelpers = {
   ensureCorrectUser: function(req, res, next) {
     db.Post.findBy(req.params.id, function(req, res) {
       if (post.user == req.params.id) {
-        res.redirect('/users'); //TODO: figure where
+        res.redirect('/users');
       } else {
         return next();
       }
@@ -21,7 +21,7 @@ var routeHelpers = {
 
   preventLoginSignup: function(req, res, next) {
     if (req.session.id !== null && req.session.id !== undefined) {
-      res.redirect('/users'); //TODO: figure where
+      res.redirect('/users');
     } else {
       return next();
     }
