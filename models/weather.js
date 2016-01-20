@@ -6,7 +6,7 @@ var weatherSchema = new mongoose.Schema({
   locationLat: Number,
   locationLong: Number,
   time: String,
-  weatherData: String,
+  weatherData: String
 });
 weatherSchema.plugin(findOrCreate);
 
