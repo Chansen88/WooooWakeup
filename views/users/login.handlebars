@@ -1,8 +1,28 @@
-<form method="POST"action‘'/users/login'>
-  <label for "username">Username</label>
-  <input type= 'text' id="username"name="user[username]"></input>
-  <label for "password">Password</label>
-  <input type='password'id="password"name='user[password]'></input>
-  <input type='submit' value='Login'</input>
-</form>
-<a href= '/users/signup'>sign up for Woooo WakeUp</a>
+  <form action="/users/login" method="post">
+    <table class="center-container">
+      <tr>
+        <td>
+          <label for "username">Username </label>
+        </td>
+        <td>
+          <input type= "text" id="username" name="user[username]" placeholder="Username"></input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for "password">Password </label>
+        </td>
+        <td>
+          <input type="password"id="password"name="user[password]" placeholder="password"></input>
+        </td>
+      </tr>
+      <tr class="right-container">
+        <td>
+          <input class="btn btn-primary" type="submit" value="Login"</input>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <p>
+    <a class="center-container" href= "/users/signup">sign up for Woooo WakeUp</a>
+  </p>
