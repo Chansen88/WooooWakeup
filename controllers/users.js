@@ -1,9 +1,35 @@
+
+var GoogleMapsAPI = require('googlemaps');
 var db = require('../models/index');
 var loginMiddleware = require('../middleware/loginhelper');
 var routeMiddleware = require('../middleware/routehelper');
+var publicConfig = {
+  key: 'KEY',
+  stagger_time:       1000, // for elevationPath
+  encode_polylines:   false,
+  secure:             true, // use https
+  proxy:              'http://127.0.0.1:9999' // optional, set a proxy for HTTP requests
+};
+var gmAPI = new GoogleMapsAPI(publicConfig);
+
 
 app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.session.id, function(err, user) {
+    var params = {
+      center: user.locationLat + ',' + user.locationLong,
+      zoom: 15,
+      size: '300x200',
+      maptype: 'roadmap',
+      markers: [
+        {
+          location: user.locationLat + ',' + user.locationLong,
+          color: 'green',
+          shadow: true
+        }
+      ]
+    };
+    user.mapUrl = gmAPI.staticMap(params);
+
     res.render('users/index', {user: user});
   });
 });
