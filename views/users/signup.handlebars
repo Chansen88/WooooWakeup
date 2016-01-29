@@ -1,13 +1,35 @@
 <form class="signup" action="/users/signup" method="post">
-  <ul>
-    <li>Avatar: <input type="text" name="user[avatar]"></li>
-    <li>Username: <input type="text" name="user[username]"></li>
-    <li>Password: <input type="password" name="user[password]"></li>
-    <li>Phone Number: <input type="text" name="user[phoneNumber]"></li>
-    <li>Location Latitude: <input class="locationLat" type="text" name="user[locationLat]"></li>
-    <li>Location Longitude: <input class="locationLong" type="text" name="user[locationLong]"></li>
-    <li><button id="location">Get Location</button></li>
-  </ul>
-  <button id="submit">Sign up</button>
+  <table class="center-container">
+    <tr>
+      <td>AvatarUrl: </td>
+      <td><input type="text" name="user[avatar]"></td>
+    </tr>
+    <tr>
+      <td>Username: </td>
+      <td><input type="text" name="user[username]"></td>
+    </tr>
+    <tr>
+      <td>Password: </td>
+      <td><input type="password" name="user[password]"></td>
+    </tr>
+    <tr>
+      <td>Phone Number: </td>
+      <td><input type="text" name="user[phoneNumber]"></td>
+    </tr>
+    <tr>
+      <td>Latitude: </td>
+      <td><input class="locationLat" type="text" name="user[locationLat]"></td>
+    </tr>
+    <tr>
+      <td>Longitude: </td>
+      <td><input class="locationLong" type="text" name="user[locationLong]"></td>
+    </tr>
+    <tr class="right-container">
+      <td><button id="location" class="btn btn-default">Get Location</button></td>
+      <td><button id="submit" class="btn btn-default">Sign up</button></td>
+    </tr>
+  </table>
 </form>
-<a href='/users/login'>Already have an account? Login here</a>
+<div class="center-container">
+  <a href='/users/login'>Already have an account? Login here</a>
+</div>
