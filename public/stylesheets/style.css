@@ -1,22 +1,27 @@
 ul {
   list-style: none;
 }
+
 h1 {
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 h3 {
   margin: 5px;
 }
+
 .panel-heading {
   width: 100%;
   display: inline-block;
 }
+
 .panel-title {
   display: inline-block;
   width: 50%;
-}
+} 
+
 .round {
   float: right;
   font-size: 20px;
@@ -29,6 +34,7 @@ h3 {
   border-radius: 100%;
   border: none;
 }
+
 .round:after {
   color: #000000;
   text-decoration: none;
@@ -36,25 +42,46 @@ h3 {
   filter: alpha(opacity=80);
   cursor: pointer;
 }
+
 .tall{
   line-height: 25px;
 }
+
 .switch {
   display: inline-block;
   float: right;
 }
+
 .container-user form {
   display: inline-block;
 }
-.avatar img {
-  width: 75px;
+
+.avatar {
+  max-width: 75px;
+  max-height: 75px;
 }
-.avatar h3 {
-  display: inline-block;
-}
+
 .user-buttons {
   text-align: center;
 }
+
 .weather {
   text-align: center;
+}
+
+.center-container{
+  display: flex;
+  justify-content: center;
+  margin: 10px 5%;
+}
+
+.align-container {
+  display: flex;
+  align-content: center;
+}
+
+.right-container{
+  display: flex;
+  justify-content: flex-end;
+  margin: 3px 0 0;
 }
