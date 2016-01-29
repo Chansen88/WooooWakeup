@@ -1,12 +1,24 @@
 <form class="signup" action="/users?_method=put" method="post">
-  <ul>
-    <li>Avatar: <input type="text" name="user[avatar]" value="{{user.avatar}}"></li>
-    <li>Username: <input type="text" name="user[username]" value="{{user.username}}"></li>
-    <!-- <li>Password: <input type="password" name="user[password]" value="user[password]"></li> -->
-    <li>Phone Number: <input type="text" name="user[phoneNumber]" value="{{user.phoneNumber}}"></li>
-    <li>Location Latitude: <input class="locationLat" type="text" name="user[locationLat]" value="{{user.locationLat}}"></li>
-    <li>Location Longitude: <input class="locationLong" type="text" name="user[locationLong]" value="{{user.locationLong}}"></li>
-    <li><button id="location">Get Location</button></li>
-  </ul>
-  <button id="submit">Submit</button>
+  <table class="center-container">
+    <tr>
+      <td>AvatarUrl:</td>
+      <td> <input type="text" name="user[avatar]" value="{{user.avatar}}"></td>
+    </tr>
+    <tr>
+      <td>Phone Number:</td>
+      <td> <input type="text" name="user[phoneNumber]" value="{{user.phoneNumber}}"></td>
+    </tr>
+    <tr>
+      <td>Latitude:</td>
+      <td> <input class="locationLat" type="text" name="user[locationLat]" value="{{user.locationLat}}"></td>
+    </tr>
+    <tr>
+      <td>Longitude:</td>
+      <td> <input class="locationLong" type="text" name="user[locationLong]" value="{{user.locationLong}}"></td>
+    </tr>
+    <tr class="right-container">
+      <td><button id="location" class="btn btn-default">Get Location</button></td>
+      <td><button id="submit" class="btn btn-default">Submit</button></td>
+    </tr>
+  </table>
 </form>
